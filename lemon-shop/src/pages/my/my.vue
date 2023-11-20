@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
 //导入自定义请求拦截器
-import '@/utils/http'
+import { http } from '@/utils/http'
 
 const memberStore = useMemberStore()
 
-const getData = () => {
-  uni.request({
+//异步请求 获取用户信息
+const getData = async () => {
+  //定义res.data.result的返回类型
+  const res = await http({
     method: 'GET',
-    url: '/home/banner',
+    url: '/member/profile',
   })
+  console.log('获取数据成功', res.result);
 }
 </script>
 
