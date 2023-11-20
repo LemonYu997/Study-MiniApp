@@ -1,7 +1,7 @@
 # Study-MiniApp
 小程序+Vue3+Ts+UniAPP
 
-**真实项目代码在 mini-shop中**
+**真实项目代码在 lemon-shop中**
 
 参考学习视频：https://www.bilibili.com/video/BV1Bp4y1379L
 参考学习文档：https://megasu.gitee.io/uni-app-shop-note/rabbit-shop/
