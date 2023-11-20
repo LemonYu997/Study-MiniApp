@@ -4,14 +4,14 @@
             <!-- 遍历接口获取到的轮播图数据 -->
             <swiper-item v-for="item in bannerList" :key="item.id">
                 <navigator url="/pages/index/index" hover-class="none" class="navigator">
-                    <image mode="aspectFill" class="image"
-                        :src="item.imgUrl"></image>
+                    <image mode="aspectFill" class="image" :src="item.imgUrl"></image>
                 </navigator>
             </swiper-item>
         </swiper>
         <!-- 指示点 -->
         <view class="indicator">
-            <text v-for="(item, index) in bannerList" :key="item.id" class="dot" :class="{ active: index === activeIndex }"></text>
+            <text v-for="(item, index) in bannerList" :key="item.id" class="dot"
+                :class="{ active: index === activeIndex }"></text>
         </view>
     </view>
 </template>
