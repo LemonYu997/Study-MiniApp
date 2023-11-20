@@ -1,0 +1,27 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": [
+      "@dcloudio/types",
+      "@types/wechat-miniprogram",
+      "@uni-helper/uni-app-types"
+    ]
+  },
+  "vueCompilerOptions": {
+    // "experimentalRuntimeMode": "runtime-uni-app"
+    "nativeTags": [
+      "block",
+      "component",
+      "template",
+      "slot",
+      "image"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}
