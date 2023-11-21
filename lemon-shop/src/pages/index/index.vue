@@ -92,12 +92,21 @@ const isTriggered = ref(false);
 const onRefresherrefresh = async () => {
   //开启动画
   isTriggered.value = true;
+  //重置猜你喜欢分页数据
+  guessRef.value?.resetData();
+
   //加载数据 重新获取轮播图、分类、热门推荐数据
   // await getHomeBannerData();
   // await getHomeCategory();
   // await getHomeHot();
   // 同时发送，全部返回后再继续
-  await Promise.all([getHomeBannerData(), getHomeCategory(), getHomeHot()]);
+  await Promise.all([
+    getHomeBannerData(), 
+    getHomeCategory(), 
+    getHomeHot(),
+    //获取猜你喜欢数据
+    guessRef.value?.getMore()
+  ]);
   
   //关闭动画
   isTriggered.value = false;
