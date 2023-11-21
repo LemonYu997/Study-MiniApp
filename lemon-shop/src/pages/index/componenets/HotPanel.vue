@@ -6,7 +6,8 @@
                 <text class="title-text">{{ item.title }}</text>
                 <text class="title-desc">{{ item.alt }}</text>
             </view>
-            <navigator hover-class="none" url="/pages/hot/hot" class="cards">
+            <!-- 设置跳转参数 -->
+            <navigator hover-class="none" :url="`/pages/hot/hot?type=${item.type}`" class="cards">
                 <!-- 列表嵌套 -->
                 <image class="image" mode="aspectFit" v-for="src in item.pictures" 
                     :src="src"></image>
