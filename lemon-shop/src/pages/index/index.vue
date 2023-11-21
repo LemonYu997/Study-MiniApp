@@ -1,12 +1,17 @@
 <template>
   <!-- 首页导航栏 -->
   <CustomNavbar />
-  <!-- 首页轮播图 传递接口获取的轮播图列表数据 -->
-  <LemonSwiper :bannerList="bannerList" />
-  <!-- 首页分类组件 -->
-  <CategoryPanel :categoryList="categoryList" />
-  <!-- 热门推荐 -->
-  <HotPanel :hotList="hotList" />
+  <!-- 滚动区域 y轴滚动 scrolltolower：滚动触底函数-->
+  <scroll-view @scrolltolower="onScrollToLower"  class="scroll-view" scroll-y>
+    <!-- 首页轮播图 传递接口获取的轮播图列表数据 -->
+    <LemonSwiper :bannerList="bannerList" />
+    <!-- 首页分类组件 -->
+    <CategoryPanel :categoryList="categoryList" />
+    <!-- 热门推荐 -->
+    <HotPanel :hotList="hotList" />
+    <!-- 猜你喜欢 子方法传给父组件 -->
+    <LemonGuess ref="guessRef"/>
+  </scroll-view>
   <view class="index">首页</view>
 </template>
 
@@ -23,7 +28,8 @@ import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { getHomeBannerApi, getHomeCategoryApi, getHomeHotApi } from '@/services/home';
 import type { BannerItem, CategoryItem, HotItem } from "@/types/home"
-
+import LemonGuess from '@/components/LemonGuess.vue';
+import type { LemonGuessInstance } from "@/types/components"
 
 //轮播图数据，返回为自定义类型——轮播图对象数组
 const bannerList = ref<BannerItem[]>([]);
@@ -59,6 +65,16 @@ onLoad(() => {
   getHomeCategory();
   getHomeHot();
 })
+
+//获取猜你喜欢组件实例
+const guessRef = ref<LemonGuessInstance>();
+
+//滚动触底
+const onScrollToLower = () => {
+  guessRef.value?.getMore();
+  // console.log('滚动触底啦');
+}
+
 </script>
 
 
@@ -66,5 +82,13 @@ onLoad(() => {
 //修改首页底色，小程序的page相当于html的body
 page {
   background-color: #f7f7f7;
+  //滚动的配置
+  height: 100%;
+  display: flex;
+  flex-direction: column; //竖直排列
+}
+
+.scroll-view {
+  flex: 1;
 }
 </style>
