@@ -14,14 +14,18 @@
     @scrolltolower="onScrollToLower"  
     class="scroll-view" 
     scroll-y>
-    <!-- 首页轮播图 传递接口获取的轮播图列表数据 -->
-    <LemonSwiper :bannerList="bannerList" />
-    <!-- 首页分类组件 -->
-    <CategoryPanel :categoryList="categoryList" />
-    <!-- 热门推荐 -->
-    <HotPanel :hotList="hotList" />
-    <!-- 猜你喜欢 子方法传给父组件 -->
-    <LemonGuess ref="guessRef"/>
+    <!-- 骨架屏，当数据没有渲染完成时先显示骨架屏 -->
+    <PageSkeleton v-if="isLoading"/>
+    <template v-else>
+      <!-- 首页轮播图 传递接口获取的轮播图列表数据 -->
+      <LemonSwiper :bannerList="bannerList" />
+      <!-- 首页分类组件 -->
+      <CategoryPanel :categoryList="categoryList" />
+      <!-- 热门推荐 -->
+      <HotPanel :hotList="hotList" />
+      <!-- 猜你喜欢 子方法传给父组件 -->
+      <LemonGuess ref="guessRef"/>
+    </template>
   </scroll-view>
 </template>
 
@@ -34,11 +38,14 @@ import LemonSwiper from '@/components/LemonSwiper.vue';
 import CategoryPanel from './componenets/CategoryPanel.vue';
 //热门推荐
 import HotPanel from './componenets/HotPanel.vue';
+//猜你喜欢
+import LemonGuess from '@/components/LemonGuess.vue';
+//骨架屏
+import PageSkeleton from './componenets/PageSkeleton.vue'
 import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { getHomeBannerApi, getHomeCategoryApi, getHomeHotApi } from '@/services/home';
 import type { BannerItem, CategoryItem, HotItem } from "@/types/home"
-import LemonGuess from '@/components/LemonGuess.vue';
 import type { LemonGuessInstance } from "@/types/components"
 
 //轮播图数据，返回为自定义类型——轮播图对象数组
@@ -68,12 +75,21 @@ const getHomeHot = async () => {
 }
 
 
+//是否加载中标记
+const isLoading = ref(false);
+
 //UniApp页面生命周期 发生在Vue3的created()之后 
 //页面加载时候调用
-onLoad(() => {
-  getHomeBannerData();
-  getHomeCategory();
-  getHomeHot();
+onLoad(async () => {
+  //数据加载前先显示骨架屏
+  isLoading.value = true;
+  await Promise.all([
+    getHomeBannerData(),
+    getHomeCategory(),
+    getHomeHot()
+  ])
+  //数据加载结束关闭骨架屏
+  isLoading.value = false;
 })
 
 //获取猜你喜欢组件实例
