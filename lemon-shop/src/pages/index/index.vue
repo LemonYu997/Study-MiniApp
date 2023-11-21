@@ -1,8 +1,19 @@
 <template>
   <!-- 首页导航栏 -->
   <CustomNavbar />
-  <!-- 滚动区域 y轴滚动 scrolltolower：滚动触底函数-->
-  <scroll-view @scrolltolower="onScrollToLower"  class="scroll-view" scroll-y>
+  <!-- 滚动区域 y轴滚动 
+    scrolltolower：滚动触底函数 
+    refresher-enabled：开启下拉刷新
+    @refresherrefresh：自定义下拉刷新
+    refresher-triggered：当前下拉刷新状态，动画展示
+  -->
+  <scroll-view 
+    refresher-enabled="true" 
+    @refresherrefresh="onRefresherrefresh"
+    :refresher-triggered="isTriggered" 
+    @scrolltolower="onScrollToLower"  
+    class="scroll-view" 
+    scroll-y>
     <!-- 首页轮播图 传递接口获取的轮播图列表数据 -->
     <LemonSwiper :bannerList="bannerList" />
     <!-- 首页分类组件 -->
@@ -12,7 +23,6 @@
     <!-- 猜你喜欢 子方法传给父组件 -->
     <LemonGuess ref="guessRef"/>
   </scroll-view>
-  <view class="index">首页</view>
 </template>
 
 <script setup lang="ts">
@@ -73,6 +83,24 @@ const guessRef = ref<LemonGuessInstance>();
 const onScrollToLower = () => {
   guessRef.value?.getMore();
   // console.log('滚动触底啦');
+}
+
+//当前下拉刷新动画状态
+const isTriggered = ref(false);
+
+//自定义下拉刷新
+const onRefresherrefresh = async () => {
+  //开启动画
+  isTriggered.value = true;
+  //加载数据 重新获取轮播图、分类、热门推荐数据
+  // await getHomeBannerData();
+  // await getHomeCategory();
+  // await getHomeHot();
+  // 同时发送，全部返回后再继续
+  await Promise.all([getHomeBannerData(), getHomeCategory(), getHomeHot()]);
+  
+  //关闭动画
+  isTriggered.value = false;
 }
 
 </script>
