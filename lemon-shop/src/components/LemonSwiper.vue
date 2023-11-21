@@ -33,9 +33,8 @@ const onChange: UniHelper.SwiperOnChange = (e) => {
 //定义props 接收首页传过来的轮播图数据
 const props = defineProps<{
     //定义类型
-    bannerList: BannerItem[]
+    bannerList: BannerItem[];
 }>();
-//渲染到页面中
 
 </script>
 
