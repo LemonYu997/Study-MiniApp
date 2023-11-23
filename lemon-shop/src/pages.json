@@ -52,6 +52,12 @@
 			"style": {
 				"navigationBarTitleText": "热门推荐"
 			}
+		},
+		{
+			"path": "pages/goods/goods",
+			"style": {
+				"navigationBarTitleText": "goods"
+			}
 		}
 	],
 	"globalStyle": {
