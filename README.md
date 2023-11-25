@@ -123,3 +123,15 @@ npm i -D @uni-helper/uni-ui-types
 ```shell
 npm install --save pinia-plugin-persistedstate
 ```
+
+## 微信调试
+
+小程序开发者工具下载页：https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
+
+进入项目并编译：
+```shell
+cd /lemon-shop
+npm run dev:mp-weixin
+```
+
+将编译的`dist/dev/mp-weixin`文件导入到小程序开发工具中即可

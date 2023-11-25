@@ -4,13 +4,14 @@
     <view class="profile" :style="{ paddingTop: safeAreaInsets!.top + 'px' }">
       <!-- 情况1：已登录 -->
       <view class="overview" v-if="memberStore.profile">
-        <navigator url="/pagesMember/profile/profile" hover-class="none">
+        <!-- 跳转到个人信息页 -->
+        <navigator url="/pagesmember/profile/profile" hover-class="none">
           <image class="avatar" mode="aspectFill"
             :src="memberStore.profile.avatar"></image>
         </navigator>
         <view class="meta">
           <view class="nickname"> {{ memberStore.profile.nickname || memberStore.profile.account}} </view>
-          <navigator class="extra" url="/pagesMember/profile/profile" hover-class="none">
+          <navigator class="extra" url="/pagesmember/profile/profile" hover-class="none">
             <text class="update">更新头像昵称</text>
           </navigator>
         </view>
@@ -31,6 +32,7 @@
           </view>
         </view>
       </view>
+      <!-- 跳转到设置页 -->
       <navigator class="settings" url="/pagesmember/settings/settings" hover-class="none">
         设置
       </navigator>

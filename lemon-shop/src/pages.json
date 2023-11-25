@@ -109,6 +109,15 @@
 					"style": {
 						"navigationBarTitleText": "设置"
 					}
+				},
+				{
+					"path": "profile/profile",
+					"style": {
+						//隐藏默认顶部导航栏
+						"navigationStyle": "custom",
+						"navigationBarTextStyle": "white",
+						"navigationBarTitleText": "个人信息"
+					}
 				}
 			]
 		}
@@ -120,7 +129,9 @@
 			//在什么网络条件下下载
 			"network": "all",
 			//下载哪个包
-			"packages": ["pagesmember"]
+			"packages": [
+				"pagesmember"
+			]
 		}
 	}
 }
