@@ -46,7 +46,7 @@ import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { getHomeBannerApi, getHomeCategoryApi, getHomeHotApi } from '@/services/home';
 import type { BannerItem, CategoryItem, HotItem } from "@/types/home"
-import type { LemonGuessInstance } from "@/types/components"
+import { useGuessList } from '@/composables'
 
 //轮播图数据，返回为自定义类型——轮播图对象数组
 const bannerList = ref<BannerItem[]>([]);
@@ -92,14 +92,8 @@ onLoad(async () => {
   isLoading.value = false;
 })
 
-//获取猜你喜欢组件实例
-const guessRef = ref<LemonGuessInstance>();
-
-//滚动触底
-const onScrollToLower = () => {
-  guessRef.value?.getMore();
-  // console.log('滚动触底啦');
-}
+//组合式函数——获取猜你喜欢列表+滚动触底函数
+const { guessRef, onScrollToLower } = useGuessList();
 
 //当前下拉刷新动画状态
 const isTriggered = ref(false);
