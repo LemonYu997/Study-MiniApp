@@ -53,7 +53,7 @@ cnpm i -D miniprogram-api-typings @uni-helper/uni-app-types
 ```
 
 2、配置tsconfig.json
-```json
+```jsonc
 {
   "compilerOptions": {
     //...
@@ -78,7 +78,7 @@ npm i @dcloud/uni-ui
 ```
 
 在pages.info配置自动导入组件
-```json
+```jsonc
 {
   //组件自动导入规则
   "easycom": {
@@ -99,7 +99,7 @@ npm i -D @uni-helper/uni-ui-types
 ```
 
 在tsconfig.json中配置类型声明文件：
-```json
+```jsonc
 // tsconfig.json
 {
   "compilerOptions": {
