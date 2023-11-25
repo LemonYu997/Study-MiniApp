@@ -26,7 +26,7 @@ Uni-App创建方式：
 ```shell
 npx degit dcloudio/uni-preset-vue#vite-ts 项目名称
 ```
-无法创建模板文件时访问https://gitee.com/dcloud/uni-preset-vue/repository/archive/vite-ts.zip下载
+无法创建模板文件时访问这里下载：https://gitee.com/dcloud/uni-preset-vue/repository/archive/vite-ts.zip
 
 ## 启动和运行
 
