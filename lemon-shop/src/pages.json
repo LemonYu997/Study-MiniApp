@@ -56,7 +56,7 @@
 		{
 			"path": "pages/goods/goods",
 			"style": {
-				"navigationBarTitleText": "goods"
+				"navigationBarTitleText": "商品详情"
 			}
 		}
 	],
@@ -98,5 +98,29 @@
 				"selectedIconPath": "static/tabs/user_selected.png"
 			}
 		]
+	},
+	//分包加载规则
+	"subPackages": [
+		{
+			"root": "pagesmember",
+			"pages": [
+				{
+					"path": "settings/settings",
+					"style": {
+						"navigationBarTitleText": "设置"
+					}
+				}
+			]
+		}
+	],
+	//分包预下载规则
+	"preloadRule": {
+		//打开哪个页面路径时
+		"pages/my/my": {
+			//在什么网络条件下下载
+			"network": "all",
+			//下载哪个包
+			"packages": ["pagesmember"]
+		}
 	}
 }
