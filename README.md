@@ -4,11 +4,16 @@
 **真实项目代码在 lemon-shop中**
 
 参考学习视频：https://www.bilibili.com/video/BV1Bp4y1379L
+
 参考学习文档：https://megasu.gitee.io/uni-app-shop-note/rabbit-shop/
 
+
 Vue3官方文档：https://cn.vuejs.org/guide/introduction.html
+
 小程序官方文档：https://developers.weixin.qq.com/miniprogram/dev/framework/
+
 Uni-APP官方文档：https://uniapp.dcloud.net.cn/
+
 Hbuilder X官方文档：https://hx.dcloud.net.cn/
 
 Uni-App创建方式：
