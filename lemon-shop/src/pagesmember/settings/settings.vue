@@ -2,7 +2,7 @@
   <view class="viewport">
     <!-- 列表1 收货地址只有在登录后才会展示-->
     <view class="list" v-if="memberStore.profile">
-      <navigator url="/pagesMember/address/address" hover-class="none" class="item arrow">
+      <navigator url="/pagesmember/address/address" hover-class="none" class="item arrow">
         我的收货地址
       </navigator>
     </view>
