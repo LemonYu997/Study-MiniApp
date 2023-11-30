@@ -1,5 +1,5 @@
 <template>
-    <scroll-view scroll-y class="scroll-view">
+    <scroll-view @scrolltolower="onScrollToLower" scroll-y enable-back-to-top class="scroll-view">
         <!-- 已登录: 显示购物车 -->
         <template v-if="member.profile">
             <!-- 购物车列表 -->
@@ -83,6 +83,10 @@ import { ref } from 'vue';
 import type { CartItem } from '@/types/cart';
 import type { InputNumberBoxEvent } from '@/components/vk-data-input-number-box/vk-data-input-number-box';
 import { computed } from 'vue';
+import { useGuessList } from '@/composables';
+
+//组合式函数——获取猜你喜欢列表+滚动触底函数
+const { guessRef, onScrollToLower } = useGuessList();
 
 //获取会员store
 const member = useMemberStore()
