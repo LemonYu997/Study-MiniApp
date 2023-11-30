@@ -34,7 +34,7 @@ export const useMemberStore = defineStore(
       clearProfile,
     }
   },
-  // TODO: 持久化
+  //持久化
   {
     //网页端方案
     // persist: true,

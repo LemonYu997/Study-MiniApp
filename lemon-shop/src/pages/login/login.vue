@@ -78,8 +78,9 @@ const loginSuccess = (profile: LoginResult) => {
   })
   // 等提示显示后再跳转 暂停0.5s
   setTimeout(() => {
-    // 页面跳转到我的
-    uni.switchTab({ url: '/pages/my/my' })
+    // 页面跳转到登录前所在页面
+    // uni.switchTab({ url: '/pages/my/my' })
+    uni.navigateBack()
   }, 500)
 }
 </script>
