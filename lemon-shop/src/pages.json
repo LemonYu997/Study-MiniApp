@@ -138,6 +138,23 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "pagesorder",
+			"pages": [
+				{
+					"path": "create/create",
+					"style": {
+						"navigationBarTitleText": "填写订单"
+					}
+				},
+				{
+					"path": "detail/detail",
+					"style": {
+						"navigationBarTitleText": "订单详情"
+					}
+				}
+			]
 		}
 	],
 	//分包预下载规则

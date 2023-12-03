@@ -3,7 +3,8 @@
   <vk-data-goods-sku-popup v-model="isShowSku" :localdata="localdata" :mode="mode" 
   add-cart-background-color="#FFA868" buy-now-background-color="#27BA9B" 
   ref="skuPopupRef" :actived-style="{color: '#27BA9B', borderColor: '#27BA9B', backgroundColor: '#E9F8F5'}" 
-  @add-cart="onAddCart" />
+  @add-cart="onAddCart" 
+  @buy-now="onBuyNow" />
   <scroll-view scroll-y class="viewport">
     <!-- 基本信息 -->
     <view class="goods">
@@ -248,6 +249,12 @@ const onAddCart = async (event:SkuPopupEvent) => {
   })
   //隐藏弹窗
   isShowSku.value = false;
+}
+
+//立即购买事件
+const onBuyNow = (event: SkuPopupEvent) => {
+  //传递id和数量给订单页
+  uni.navigateTo({url: `/pagesorder/create/create?skuId=${event._id}&count=${event.buy_num}`})
 }
 </script>
 
