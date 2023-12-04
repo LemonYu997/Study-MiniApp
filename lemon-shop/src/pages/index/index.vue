@@ -8,7 +8,7 @@
     refresher-triggered：当前下拉刷新状态，动画展示
   -->
   <scroll-view 
-    refresher-enabled="true" 
+    :refresher-enabled="true" 
     @refresherrefresh="onRefresherrefresh"
     :refresher-triggered="isTriggered" 
     @scrolltolower="onScrollToLower"  

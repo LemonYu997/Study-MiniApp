@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { getMemberOrderPreApi, getMemberOrderPreNowApi, postMemberOrderApi } from '@/services/order';
+import { getMemberOrderPreApi, getMemberOrderPreNowApi, postMemberOrderApi, getMemberOrderRepurchaseByIdApi } from '@/services/order';
 import { useAddressStore } from '@/stores/modules/address';
 import type { OrderPreResult } from '@/types/order';
 import { onLoad } from '@dcloudio/uni-app';
@@ -94,7 +94,8 @@ const onChangeDelivery: UniHelper.SelectorPickerOnChange = (ev) => {
 //获取页面参数（如果从商品详情——立即购买进来时）
 const query = defineProps<{
   skuId?: string,
-  count?: string
+  count?: string,
+  orderId?: string
 }>()
 
 //获取订单信息
@@ -107,6 +108,10 @@ const getMemberOrderPreData = async () => {
       count: query.count,
       skuId: query.skuId
     })
+    orderPre.value = res.result;
+  } else if (query.orderId) {
+    //再次购买
+    const res = await getMemberOrderRepurchaseByIdApi(query.orderId);
     orderPre.value = res.result;
   } else {
     //获取预付订单
