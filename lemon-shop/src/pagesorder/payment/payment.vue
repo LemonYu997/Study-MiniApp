@@ -20,7 +20,7 @@ const { guessRef, onScrollToLower } = useGuessList()
         <navigator hover-class="none" class="button navigator" url="/pages/index/index" open-type="switchTab">
           返回首页
         </navigator>
-        <navigator hover-class="none" class="button navigator" :url="`/pagesOrder/detail/detail?id=${query.id}`"
+        <navigator hover-class="none" class="button navigator" :url="`/pagesorder/detail/detail?id=${query.id}`"
           open-type="redirect">
           查看订单
         </navigator>
