@@ -5,15 +5,19 @@
     </view>
     <view class="login">
       <!-- 网页端表单登录 -->
-      <!-- <input class="input" type="text" placeholder="请输入用户名/手机号码" /> -->
-      <!-- <input class="input" type="text" password placeholder="请输入密码" /> -->
-      <!-- <button class="button phone">登录</button> -->
+      <!-- #ifdef H5 -->
+        <input class="input" type="text" placeholder="请输入用户名/手机号码" />
+        <input class="input" type="text" password placeholder="请输入密码" />
+        <button class="button phone">登录</button>
+      <!-- #endif -->
 
       <!-- 小程序端授权登录 getPhoneNumber获取用户手机号 只有企业认证小程序才能使用 -->
-      <button class="button phone" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
-        <text class="icon icon-phone"></text>
-        手机号快捷登录
-      </button>
+      <!-- #ifdef MP-WEIXIN -->
+        <button class="button phone" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+          <text class="icon icon-phone"></text>
+          手机号快捷登录
+        </button>
+      <!-- #endif -->
       <view class="extra">
         <view class="caption">
           <text>其他登录方式</text>
@@ -36,6 +40,8 @@ import { useMemberStore } from '@/stores';
 import { onLoad } from '@dcloudio/uni-app';
 import type { LoginResult } from '@/types/member'
 
+//条件编译
+// #ifdef MP-WEIXIN
 // 获取code 小程序登录凭证
 let code = '';
 onLoad(async () => {
@@ -44,7 +50,7 @@ onLoad(async () => {
 })
 
 //获取用户手机号
-const onGetPhoneNumber:UniHelper.ButtonOnGetphonenumber = async (event) => {
+const onGetPhoneNumber: UniHelper.ButtonOnGetphonenumber = async (event) => {
   //只有企业认证账号才能调用该方法
   const encryptedData = event.detail.encryptedData!;
   const iv = event.detail.iv!;
@@ -57,6 +63,8 @@ const onGetPhoneNumber:UniHelper.ButtonOnGetphonenumber = async (event) => {
   // console.log(res);
   loginSuccess(res.result);
 }
+// #endif
+
 
 //模拟手机号码快捷登录 开发练习
 const onGetPhonenumberSimple = async () => {

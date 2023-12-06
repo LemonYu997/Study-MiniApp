@@ -89,10 +89,12 @@ const onOrderPay = async (id: string) => {
     //开发环境 模拟支付
     await getPayMockApi({ orderId: id });
   } else {
-    //生产环境
-    //获取支付参数
-    const res = await getPayWxPayMiniPayApi({ orderId: id });
-    wx.requestPayment(res.result);
+    // #ifdef MP-WEIXIN
+      //生产环境
+      //获取支付参数
+      const res = await getPayWxPayMiniPayApi({ orderId: id });
+      wx.requestPayment(res.result);
+    // #endif
   }
   //成功提示
   uni.showToast({
