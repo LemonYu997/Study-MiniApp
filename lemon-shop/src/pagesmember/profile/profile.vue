@@ -40,7 +40,8 @@
         </view>
         <view class="form-item">
           <text class="label">生日</text>
-          <picker @change="onBirthdayChange" class="picker" mode="date" start="1900-01-01" :end="new Date()" :value="profile?.birthday">
+          <picker @change="onBirthdayChange" class="picker" mode="date" start="1900-01-01" :end="new Date()"
+            :value="profile?.birthday">
             <view v-if="profile?.birthday">{{ profile.birthday }}</view>
             <view class="placeholder" v-else>请选择日期</view>
           </picker>
@@ -87,61 +88,78 @@ const getMemberProfileData = async () => {
 
 onLoad(() => {
   getMemberProfileData();
-}) 
+})
 
 //修改头像 头像上传
 const onAvatarChange = () => {
+  // #ifdef MP-WEIXIN
   //调用拍照、选择图片
   uni.chooseMedia({
     count: 1,
     //文件类型
     mediaType: ['image'],
-    success:(res)=>{
+    success: (res) => {
       //本地路径
       const { tempFilePath } = res.tempFiles[0]
       //文件上传
-      uni.uploadFile({
-        url: '/member/profile/avatar',
-        name: 'file',
-        filePath: tempFilePath,
-        success: (res) => {
-          if (res.statusCode === 200) {
-            //获取上传成功的头像url
-            const avatar = JSON.parse(res.data).result.avatar
-            //更新当前页面展示的头像
-            profile.value!.avatar = avatar
-            //更新store中的个人信息
-            memberStore.profile!.avatar = avatar;
-            //成功提示
-            uni.showToast({
-              icon: 'none',
-              title: '更新成功'
-            })
-          } else { 
-            //失败提示
-            uni.showToast({
-              icon: 'error',
-              title: '出现错误'
-            })
-          }
-        } 
-      })
+      uploadFile(tempFilePath);
     },
   })
+  // #endif
+
+  // #ifdef H5 || APP-PLUS
+  uni.chooseImage({
+    count: 1,
+    success: (res) => {
+      const tempFilePath = res.tempFilePaths[0];
+      //文件上传
+      uploadFile(tempFilePath);
+    },
+  })
+  // #endif
 }
 
+//文件上传
+const uploadFile = (tempFilePath: string) => {
+  uni.uploadFile({
+    url: '/member/profile/avatar',
+    name: 'file',
+    filePath: tempFilePath,
+    success: (res) => {
+      if (res.statusCode === 200) {
+        //获取上传成功的头像url
+        const avatar = JSON.parse(res.data).result.avatar
+        //更新当前页面展示的头像
+        profile.value!.avatar = avatar
+        //更新store中的个人信息
+        memberStore.profile!.avatar = avatar;
+        //成功提示
+        uni.showToast({
+          icon: 'none',
+          title: '更新成功'
+        })
+      } else {
+        //失败提示
+        uni.showToast({
+          icon: 'error',
+          title: '出现错误'
+        })
+      }
+    }
+  })
+}
 // 修改性别
-const onGenderChange:UniHelper.RadioGroupOnChange = (event) => {
+const onGenderChange: UniHelper.RadioGroupOnChange = (event) => {
   profile.value.gender = event.detail.value as Gender
 }
 
 //修改生日
-const onBirthdayChange:UniHelper.DatePickerOnChange = (event) => {
+const onBirthdayChange: UniHelper.DatePickerOnChange = (event) => {
   profile.value.birthday = event.detail.value
 }
 
 //修改城市
-const onFullLocationChange:UniHelper.RegionPickerOnChange = (event) => {
+const onFullLocationChange: UniHelper.RegionPickerOnChange = (event) => {
   //修改前端界面 转换为字符串
   profile.value.fullLocation = event.detail.value.join(" ")
   //将城市编码放入store
@@ -150,7 +168,7 @@ const onFullLocationChange:UniHelper.RegionPickerOnChange = (event) => {
 
 //点击保存，提交表单
 const onSubmit = async () => {
-  const {nickname, gender, birthday, profession} = profile.value;
+  const { nickname, gender, birthday, profession } = profile.value;
   const res = await putMemberProfileApi({
     nickname,
     gender,

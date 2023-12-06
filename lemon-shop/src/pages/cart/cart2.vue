@@ -12,3 +12,9 @@ const { safeAreaInsets } = uni.getSystemInfoSync()
 
 console.log(safeAreaInsets);
 </script>
+
+<style lang="scss">
+page {
+    height: 100%;
+}
+</style>

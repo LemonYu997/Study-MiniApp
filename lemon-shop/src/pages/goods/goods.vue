@@ -1,20 +1,17 @@
 <template>
   <!-- sku弹窗组件 -->
-  <vk-data-goods-sku-popup v-model="isShowSku" :localdata="localdata" :mode="mode" 
-  add-cart-background-color="#FFA868" buy-now-background-color="#27BA9B" 
-  ref="skuPopupRef" :actived-style="{color: '#27BA9B', borderColor: '#27BA9B', backgroundColor: '#E9F8F5'}" 
-  @add-cart="onAddCart" 
-  @buy-now="onBuyNow" />
+  <vk-data-goods-sku-popup v-model="isShowSku" :localdata="localdata" :mode="mode" add-cart-background-color="#FFA868"
+    buy-now-background-color="#27BA9B" ref="skuPopupRef"
+    :actived-style="{ color: '#27BA9B', borderColor: '#27BA9B', backgroundColor: '#E9F8F5' }" @add-cart="onAddCart"
+    @buy-now="onBuyNow" />
   <scroll-view scroll-y class="viewport">
     <!-- 基本信息 -->
     <view class="goods">
       <!-- 商品主图 -->
       <view class="preview">
         <swiper circular @change="onChange">
-          <swiper-item 
-          v-for="item in goods?.mainPictures" 
-          :key="item">
-          <!-- 大图预览 -->
+          <swiper-item v-for="item in goods?.mainPictures" :key="item">
+            <!-- 大图预览 -->
             <image @tap="onTapImage(item)" mode="aspectFill" :src="item" />
           </swiper-item>
         </swiper>
@@ -67,9 +64,7 @@
           </view>
         </view>
         <!-- 图片详情 -->
-        <image v-for="item in goods?.details.pictures" 
-        mode="widthFix" 
-        :src="item"></image>
+        <image v-for="item in goods?.details.pictures" mode="widthFix" :src="item"></image>
       </view>
     </view>
 
@@ -79,9 +74,9 @@
         <text>同类推荐</text>
       </view>
       <view class="content">
-        <navigator v-for="item in goods?.similarProducts" :key="item.id" class="goods" hover-class="none" :url="`/pages/goods/goods?id=${item.id}`">
-          <image class="image" mode="aspectFill"
-            :src="item.picture"></image>
+        <navigator v-for="item in goods?.similarProducts" :key="item.id" class="goods" hover-class="none"
+          :url="`/pages/goods/goods?id=${item.id}`">
+          <image class="image" mode="aspectFill" :src="item.picture"></image>
           <view class="name ellipsis">{{ item.name }}</view>
           <view class="price">
             <text class="symbol">¥</text>
@@ -97,9 +92,9 @@
     <view class="icons">
       <button class="icons-button"><text class="icon-heart"></text>收藏</button>
       <!-- #ifdef MP-WEIXIN -->
-        <button class="icons-button" open-type="contact">
-          <text class="icon-handset"></text>客服
-        </button>
+      <button class="icons-button" open-type="contact">
+        <text class="icon-handset"></text>客服
+      </button>
       <!-- #endif -->
 
       <!-- 跳转的是多复制出来的购物车普通页，不是tabBar页 -->
@@ -114,12 +109,8 @@
   </view>
 
   <!-- uni-app弹出层 -->
-  <uni-popup
-    ref="popup"
-    type="bottom"
-    background-color="#fff"
-  >
-    <AddressPanel v-if="popupName === 'address'" @close="popup?.close()"/>
+  <uni-popup ref="popup" type="bottom" background-color="#fff">
+    <AddressPanel v-if="popupName === 'address'" @close="popup?.close()" />
     <ServicePanel v-if="popupName === 'service'" @close="popup?.close()" />
     <button @tap="popup?.close()">关闭弹出层</button>
   </uni-popup>
@@ -170,7 +161,7 @@ const getGoodsByIdData = async () => {
         image: v.picture,
         price: v.price * 100,
         stock: v.inventory,
-        sku_name_arr: v.specs.map(vv => {return vv.valueName})
+        sku_name_arr: v.specs.map(vv => { return vv.valueName })
       }
     })
   }
@@ -183,7 +174,7 @@ onLoad(() => {
 
 //轮播图变化时事件
 const currentIndex = ref(0);
-const onChange:UniHelper.SwiperOnChange = (e) => {
+const onChange: UniHelper.SwiperOnChange = (e) => {
   //获取当前下标
   currentIndex.value = e.detail!.current;
 }
@@ -243,9 +234,9 @@ const selectArrText = computed(() => {
 })
 
 //加入购物车事件
-const onAddCart = async (event:SkuPopupEvent) => {
+const onAddCart = async (event: SkuPopupEvent) => {
   //调接口
-  await postMemberCartApi({skuId: event._id, count: event.buy_num});
+  await postMemberCartApi({ skuId: event._id, count: event.buy_num });
   uni.showToast({
     icon: 'none',
     title: '添加成功'
@@ -257,12 +248,19 @@ const onAddCart = async (event:SkuPopupEvent) => {
 //立即购买事件
 const onBuyNow = (event: SkuPopupEvent) => {
   //传递id和数量给订单页
-  uni.navigateTo({url: `/pagesorder/create/create?skuId=${event._id}&count=${event.buy_num}`})
+  uni.navigateTo({ url: `/pagesorder/create/create?skuId=${event._id}&count=${event.buy_num}` })
 }
 </script>
 
 
 <style lang="scss">
+//修复除小程序外底部缺少客服按钮导致样式出现偏移的问题
+/* #ifdef H5 || APP-PLUS */
+.toolbar .icons .navigator-wrap {
+  flex: 1;
+}
+/* #endif */
+
 page {
   height: 100%;
   overflow: hidden;
@@ -576,4 +574,5 @@ page {
       font-size: 34rpx;
     }
   }
-}</style>
+}
+</style>

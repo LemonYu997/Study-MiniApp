@@ -126,6 +126,11 @@ const onRefresherrefresh = async () => {
 
 
 <style lang="scss">
+//APP端默认样式隔离，需要处理一下
+/* #ifdef APP-PLUS */
+#app,
+/* #endif */
+
 //修改首页底色，小程序的page相当于html的body
 page {
   background-color: #f7f7f7;
